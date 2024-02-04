@@ -58,7 +58,7 @@ helm install grafana grafana/grafana \
 ## Loki Setup
 Create logging namespace:
   ``` 
-kubectl create ns logging'
+kubectl create ns logging
   ``` 
 ## Loki Helm repository:
   ``` 
@@ -138,7 +138,7 @@ These instructions assume you have already have access to a Kubernetes cluster, 
 
 ### Populate Secret Values
 
-Populate the examples/enterprise/enterprise-secrets.yaml so that:
+
 - The gcp_service_account.json secret has the contents of your GCP Service Account JSON key
 - Update the Values inside Loki-secrets.yaml 
 
