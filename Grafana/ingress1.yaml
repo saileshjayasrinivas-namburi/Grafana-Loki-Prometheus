@@ -1,0 +1,29 @@
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    alb.ingress.kubernetes.io/certificate-arn: # Provide Certificate ARN
+    alb.ingress.kubernetes.io/conditions.grafana: |
+      [{"field":"path-pattern","pathPatternConfig":{"values":["/","/*"]}}]
+    alb.ingress.kubernetes.io/group.name: grafana
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
+    alb.ingress.kubernetes.io/load-balancer-attributes: idle_timeout.timeout_seconds=300
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/security-groups: # Provide Security Groups 
+    alb.ingress.kubernetes.io/ssl-policy: # Provide Security Ploicy
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/whitelist-source-range: # whitelist IP Range 
+  name: grafana-ingress
+  namespace: grafana
+spec:
+  defaultBackend:
+    service:
+      name: grafana
+      port:
+        number: 80
+  ingressClassName: alb
+

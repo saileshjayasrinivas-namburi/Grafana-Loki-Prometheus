@@ -1,0 +1,27 @@
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    alb.ingress.kubernetes.io/actions.grafana: '{"Type": "redirect", "RedirectConfig":
+      { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
+    alb.ingress.kubernetes.io/conditions.grafana: |
+      [{"field":"path-pattern","pathPatternConfig":{"values":["/","/*"]}}]
+    alb.ingress.kubernetes.io/group.name: grafana
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/ssl-policy: # Provide Security Group 
+    alb.ingress.kubernetes.io/target-type: ip
+  name: grafana-ingress1
+  namespace: grafana
+spec:
+  defaultBackend:
+    service:
+      name: grafana
+      port:
+        name: use-annotation
+  ingressClassName: alb
+
